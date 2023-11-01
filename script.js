@@ -53,7 +53,16 @@ const textNodes = [
       ]   
     },
     {   //nästa steg 
-        id: 2
+        id: 2,
+        text: 'Du går vidare för att se var du kan börja gräva efter potentiellt guld när du stöter på en man.'
+        options: [
+            {
+                text: 'Köpslå om en karta med din ask',
+                requiredState: (currentState) => currentState.glimmrandeAsk  //en kontrollfunktion för att se om vi har asken
+                setState: { glimmrandeAsk: false, karta: true },
+                nextText: 3
+            }
+        ]
     }
 ]
 
