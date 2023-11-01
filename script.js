@@ -12,7 +12,10 @@ function startGame() {
 
 function showTextNode(textNodeIndex) {
     const textNode = textNodes.find(textNode => textNode.id === textNodeIndex) //gör så att rätt textnode syns
-    textElement.innerText = textNode.text
+    textElement.innerText = textNode.text //visar den aktuella texten
+    while (optionButtonsElement.firstChild){ //gör så att knapparna inte blir synliga i första delen
+        optionButtonsElement.removeChild(optionButtonsElement.firstChild)
+    }
 }
 
 function selectOption(option) { //så att vi vet vilket val som tagits
