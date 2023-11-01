@@ -39,10 +39,10 @@ function selectOption(option) { //så att vi vet vilket val som tagits
 const textNodes = [
     {
       id: 1, 
-      text: 'Tiden du har väntat på har anlänt. Du befinner dig i Atacamaöknen på jakt efter guld, när du helt plötsligt ser något som glimrar precis vid dina fötter. Det är inte guld men en liten glimrande ask',
+      text: 'Tiden du har väntat på har anlänt. Du befinner dig i Atacamaöknen på jakt efter guld, när du helt plötsligt ser något som glimrar precis vid dina fötter. Det är inte guld men en liten glimrande ask.',
       options: [
         { //valmöjligheterna
-            text:'Ta den glimmrande asken',
+            text:'Ta asken',
             setState: { glimmrandeAsk: true }, //om karaktären väljer att ta asken
             nextText: 2  //dit den går vidare om den tar asken
         },
