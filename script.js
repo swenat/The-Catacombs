@@ -16,6 +16,19 @@ function showTextNode(textNodeIndex) {
     while (optionButtonsElement.firstChild){ //gör så att knapparna inte blir synliga i första delen
         optionButtonsElement.removeChild(optionButtonsElement.firstChild)
     }
+    
+    textNode.options.forEach(option => {  //en loop som går igenom valen och ser om den kan visa val
+        if(showOption(option)){
+            const button = document.createElement('button')
+            button.innerText = option.text
+            button.classList.add('btn') //lägger till knappen och id så att den får rätt styling
+            button.addEventListener('click', () => selectOption(option))
+        }
+    })
+}
+
+function showOptions(option){
+    return true
 }
 
 function selectOption(option) { //så att vi vet vilket val som tagits
