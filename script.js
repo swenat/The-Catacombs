@@ -11,21 +11,22 @@ function startGame() {
 }
 
 function showTextNode(textNodeIndex) {
-
+    const textNode = textNodes.find(textNode => textNode.id === textNodeIndex) //gör så att rätt textnode syns
+    textElement.innerText = textNode.text
 }
 
-function selectOption(option) {
+function selectOption(option) { //så att vi vet vilket val som tagits
 
 }
 
 const textNodes = [
     {
       id: 1, 
-      text: 'Det är nästan 40 grader varmt och du har precis klivit av på Atacams öken på jakt efter guld när du i din vy redan ser något som glimrar. Du ser att det är en liten ask',
+      text: 'Tiden du har väntat på har anlänt. Du befinner dig i Atacamaöknen på jakt efter guld, när du helt plötsligt ser något som glimrar precis vid dina fötter. Det är inte guld men en liten glimrande ask',
       options: [
         { //valmöjligheterna
             text:'Ta den glimmrande asken',
-            setState: {glimmrandeAsk: true}, //om karaktären väljer att ta asken
+            setState: { glimmrandeAsk: true }, //om karaktären väljer att ta asken
             nextText: 2  //dit den går vidare om den tar asken
         },
         {
@@ -34,7 +35,7 @@ const textNodes = [
         }
       ]   
     },
-    {   //nästa steg
+    {   //nästa steg 
         id: 2
     }
 ]
