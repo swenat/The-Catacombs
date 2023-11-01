@@ -1,5 +1,5 @@
 const textElement = document.getElementById('text')
-const optionButtonsElement = document.getElementById('option-btns')
+const optionButtonsElement = document.getElementById('option-buttons')
 
 //det som håller koll på vad vår karaktär bär på
 let state= {}
@@ -13,21 +13,22 @@ function startGame() {
 function showTextNode(textNodeIndex) {
     const textNode = textNodes.find(textNode => textNode.id === textNodeIndex) //gör så att rätt textnode syns
     textElement.innerText = textNode.text //visar den aktuella texten
-    while (optionButtonsElement.firstChild){ //gör så att knapparna inte blir synliga i första delen
+    while (optionButtonsElement.firstChild) { //gör så att knapparna inte blir synliga i första delen
         optionButtonsElement.removeChild(optionButtonsElement.firstChild)
     }
     
     textNode.options.forEach(option => {  //en loop som går igenom valen och ser om den kan visa val
-        if(showOption(option)){
+        if (showOption(option)) {
             const button = document.createElement('button')
             button.innerText = option.text
             button.classList.add('btn') //lägger till knappen och id så att den får rätt styling
             button.addEventListener('click', () => selectOption(option))
+            optionButtonsElement.appendChild(button)
         }
     })
 }
 
-function showOptions(option){
+function showOption(option){
     return true
 }
 
