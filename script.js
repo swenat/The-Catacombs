@@ -29,7 +29,7 @@ function showTextNode(textNodeIndex) {
 }
 
 function showOption(option){
-    return true
+    return option.requiredState == null || option.requiredState(state) //ingen krävd status eller om det krävda statuset uppnås så visas valet
 }
 
 function selectOption(option) { //så att vi vet vilket val som tagits
@@ -54,16 +54,28 @@ const textNodes = [
     },
     {   //nästa steg 
         id: 2,
-        text: 'Du går vidare för att se var du kan börja gräva efter potentiellt guld när du stöter på en man.'
+        text: 'Du går vidare för att se var du kan börja gräva efter potentiellt guld när du stöter på en man. Han verkar sälja saker för guldgrävande.',
         options: [
             {
-                text: 'Köpslå om en karta med din ask',
-                requiredState: (currentState) => currentState.glimmrandeAsk  //en kontrollfunktion för att se om vi har asken
+                text: 'Köpslå om en karta mot din ask',
+                requiredState: (currentState) => currentState.glimmrandeAsk,  //en kontrollfunktion för att se om vi har asken
                 setState: { glimmrandeAsk: false, karta: true },
                 nextText: 3
+            },
+            {
+                text: 'Köpslå om en kompass mot din ask',
+                requiredState: (currentState) => currentState.glimmrandeAsk,  //en kontrollfunktion för att se om vi har asken
+                setState: { glimmrandeAsk: false, kompass: true },
+                nextText: 3 
+            },
+            {
+                text: 'Ignorera mannen',
+                setState: { glimmrandeAsk: false, kompass: true },
+                nextText: 3 
             }
         ]
     }
+
 ]
 
 //kommer upp så fort spelet laddas
