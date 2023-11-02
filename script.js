@@ -33,7 +33,9 @@ function showOption(option){
 }
 
 function selectOption(option) { //så att vi vet vilket val som tagits
-
+    const nextTextNodeId = option.nextText 
+    state = Object.assign(state, option.setState) // tar vår nuvarande status, adderar allt i valstatusen och skriver över det som finns där redan
+    showTextNode(nextTextNodeId)
 }
 
 const textNodes = [
