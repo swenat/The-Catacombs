@@ -21,7 +21,8 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 40px;
+    font-size: 50px;
+    text-shadow: 2px 2px black;
 }
 
 #text {
