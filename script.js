@@ -34,6 +34,9 @@ function showOption(option){
 
 function selectOption(option) { //så att vi vet vilket val som tagits
     const nextTextNodeId = option.nextText 
+    if (nextTextNodeId <= 0) { //om detta stämmer så går den till nedan och startar om spelet
+        return startGame()
+    }
     state = Object.assign(state, option.setState) // tar vår nuvarande status, adderar allt i valstatusen och skriver över det som finns där redan
     showTextNode(nextTextNodeId)
 }
@@ -59,25 +62,52 @@ const textNodes = [
         text: 'Du går vidare för att se var du kan börja gräva efter potentiellt guld när du stöter på en man. Han verkar sälja saker för guldgrävande.',
         options: [
             {
-                text: 'Köpslå om en karta mot din ask',
+                text: 'Köpslå om en spade mot din ask',
                 requiredState: (currentState) => currentState.glimmrandeAsk,  //en kontrollfunktion för att se om vi har asken
-                setState: { glimmrandeAsk: false, karta: true },
+                setState: { glimmrandeAsk: false, spade: true },
                 nextText: 3
             },
             {
-                text: 'Köpslå om en kompass mot din ask',
+                text: 'Köpslå om en guldhacka mot din ask',
                 requiredState: (currentState) => currentState.glimmrandeAsk,  //en kontrollfunktion för att se om vi har asken
-                setState: { glimmrandeAsk: false, kompass: true },
+                setState: { glimmrandeAsk: false, guldhacka: true },
                 nextText: 3 
             },
             {
                 text: 'Ignorera mannen',
-                setState: { glimmrandeAsk: false, kompass: true },
                 nextText: 3 
             }
         ]
+    },
+    {
+        id:3,
+        text: 'Efter att ha letat efter guld i flera timmar känner du dig alldeles slut. Inget guld och du är svettig och trött. Du behöver hitta någonstans att sova så du beger dig upp mot bergen där du vet att det finns en by.',
+        options: [
+            {
+                text: 'Du ser en liten hydda dit du går in',
+                nextText: 4
+            },
+            {
+                text: 'Du ser en gammal lada och lägger dig inne bland kossorna',
+                nextText: 5
+            },
+            {
+                text: 'Du går upp till en grotta där du lägger dig och gör upp eld',
+                nextText: 6
+            }
+        ]
+    },
+    {
+        id: 6, 
+        text: 'Du märker inte men i grottan du befinner dig i fanns en björn i idé. Du väckte honom vilket resulterade i en enorm ilska hos björnen och du hann tyvärr ej fly. Du blir dödad.',
+        options: [
+            {
+                text: 'Omstart',
+                nextText: -1 //steg under första 
+            }
+        ]
+    
     }
-
 ]
 
 //kommer upp så fort spelet laddas
