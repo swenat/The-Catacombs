@@ -1,5 +1,6 @@
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
+const backgroundMusic = new Audio('Music/Nowhere.mp3')
 
 //det som håller koll på vad vår karaktär bär på
 let state= {}
@@ -23,6 +24,9 @@ function showTextNode(textNodeIndex) {
             button.innerText = option.text
             button.classList.add('btn') //lägger till knappen och id så att den får rätt styling
             button.addEventListener('click', () => selectOption(option))
+            backgroundMusic.play()
+            backgroundMusic.volume = 0.5
+            backgroundMusic.loop = true
             optionButtonsElement.appendChild(button)
         }
     })
