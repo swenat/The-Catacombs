@@ -30,6 +30,12 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#journey {
+    height: 250px;
+    border-radius: 5px;
+    
+  }
+
 .container {
     width: 900px;
     max-width: 80%;
@@ -48,7 +54,7 @@ body {
     margin-top: 20px;
 }
 .btn {
-    background: hsl(48, 67%, 50%, 0.5);
+    background:linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
     border: 1 px solid hsl(48, 89%, 37%, 0.5);
     border-radius: 5px;
     padding: 5px 10px;

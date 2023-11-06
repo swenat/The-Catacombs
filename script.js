@@ -27,7 +27,7 @@ function showTextNode(textNodeIndex) {
             button.classList.add('btn') //lägger till knappen och id så att den får rätt styling
             button.addEventListener('click', () => selectOption(option))
             backgroundMusic.play()
-            backgroundMusic.volume = 0.7
+            backgroundMusic.volume = 0.5
             backgroundMusic.loop = true
             optionButtonsElement.appendChild(button)
         }
