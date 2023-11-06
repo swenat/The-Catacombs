@@ -50,8 +50,8 @@ function selectOption(option) { //så att vi vet vilket val som tagits
 const textNodes = [
     {
       id: 1, 
-      text: 'Tiden du har väntat på har anlänt. Du befinner dig i Atacamaöknen på jakt efter guld, när du helt plötsligt ser något som glimrar precis vid dina fötter. Det är inte guld men en liten glimrande ask.',
-      image: "Images/öknen.jpg",
+      text: 'Tiden du har väntat på har anlänt.' + '\r\n' + 'Du befinner dig i Atacamaöknen på jakt efter guld, när du helt plötsligt ser något som glimrar precis vid dina fötter. Det är inte guld men en liten glimrande ask.',
+     image: "Images/öknen.jpg",
       options: [
         { //valmöjligheterna
             text:'Ta asken',

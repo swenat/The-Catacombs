@@ -25,26 +25,36 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+.image {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  
+}
+
 #text {
-    margin-top: 5px;
+    margin-top: 8px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
 }
 
 #journey {
     height: 250px;
     border-radius: 5px;
+    box-shadow: 5px 5px 5px 5px rgba(6, 0, 0, 0.5);
     
   }
 
 .container {
     width: 900px;
-    max-width: 80%;
+    max-width: 40%;
     background-image: url(Images/book.jpg);
-    padding: 10px;
+    padding: 12px;
     margin-top: 15px;
     border-radius: 6px;
     box-shadow: 0 0 10px 3px;
-    font-size: 15px;
+    font-size: 17px;
+    text-align: center;
 }
 
 .btn-grid {
