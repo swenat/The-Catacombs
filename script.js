@@ -1,6 +1,6 @@
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
-const backgroundMusic = new Audio('Music/Nowhere.mp3')
+const backgroundMusic = new Audio('Music/nowhere.mp3')
 
 //det som håller koll på vad vår karaktär bär på
 let state= {}
@@ -17,6 +17,8 @@ function showTextNode(textNodeIndex) {
     while (optionButtonsElement.firstChild) { //gör så att knapparna inte blir synliga i första delen
         optionButtonsElement.removeChild(optionButtonsElement.firstChild)
     }
+
+    journey.src = textNode.image;
     
     textNode.options.forEach(option => {  //en loop som går igenom valen och ser om den kan visa val
         if (showOption(option)) {
@@ -25,7 +27,7 @@ function showTextNode(textNodeIndex) {
             button.classList.add('btn') //lägger till knappen och id så att den får rätt styling
             button.addEventListener('click', () => selectOption(option))
             backgroundMusic.play()
-            backgroundMusic.volume = 0.5
+            backgroundMusic.volume = 0.7
             backgroundMusic.loop = true
             optionButtonsElement.appendChild(button)
         }
@@ -49,6 +51,7 @@ const textNodes = [
     {
       id: 1, 
       text: 'Tiden du har väntat på har anlänt. Du befinner dig i Atacamaöknen på jakt efter guld, när du helt plötsligt ser något som glimrar precis vid dina fötter. Det är inte guld men en liten glimrande ask.',
+      image: "Images/öknen.jpg",
       options: [
         { //valmöjligheterna
             text:'Ta asken',
