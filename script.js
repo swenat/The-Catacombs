@@ -50,38 +50,39 @@ function selectOption(option) { //så att vi vet vilket val som tagits
 const textNodes = [
     {
       id: 1, 
-      text: 'Tiden du har väntat på har anlänt.' + '\r\n' + 'Du befinner dig i Atacamaöknen på jakt efter guld, när du helt plötsligt ser något som glimrar precis vid dina fötter. Det är inte guld men en liten glimrande ask.',
-     image: "Images/öknen.jpg",
+      text: 'The time has come for your dream or nightmare to begin.' + '\r\n' + 'Your trip has taken you to the Catacombs of Paris.' + '\r\n' + 'The entrance reads: "Stop! This is the Empire of the dead."' + '\r\n' + 'Your guide wants to give you a map. Do you take it?',
+      image: "Images/entrance_catacombs.jpg",
       options: [
         { //valmöjligheterna
-            text:'Ta asken',
-            setState: { glimmrandeAsk: true }, //om karaktären väljer att ta asken
+            text:'Take the map',
+            setState: { mapofDoom: true }, //om karaktären väljer att ta asken
             nextText: 2  //dit den går vidare om den tar asken
         },
         {
-            text:'Lämna asken',
+            text:'Do not take the map',
             nextText: 2
         }
       ]   
     },
     {   //nästa steg 
         id: 2,
-        text: 'Du går vidare för att se var du kan börja gräva efter potentiellt guld när du stöter på en man. Han verkar sälja saker för guldgrävande.',
+        text: 'You proceed and enter to the first chamber. Here you meet a stranger who asks if you wish to enter a secret path of the chambers and if so with lights or without. Without lights means that you can see hidden inscriptions on the walls. Either choice meanas you need to give him your map.',
+        image: "Images/catacomb1.jpg",
         options: [
             {
-                text: 'Köpslå om en spade mot din ask',
-                requiredState: (currentState) => currentState.glimmrandeAsk,  //en kontrollfunktion för att se om vi har asken
-                setState: { glimmrandeAsk: false, spade: true },
+                text: 'You give him your map and choose with lights',
+                requiredState: (currentState) => currentState.mapofDoom,  //en kontrollfunktion för att se om vi har lappen för dolda vägen
+                setState: { mapofDoom: false, secretPathNote: true },
                 nextText: 3
             },
             {
-                text: 'Köpslå om en guldhacka mot din ask',
-                requiredState: (currentState) => currentState.glimmrandeAsk,  //en kontrollfunktion för att se om vi har asken
-                setState: { glimmrandeAsk: false, guldhacka: true },
+                text: 'You give him your map but want no lighting',
+                requiredState: (currentState) => currentState.mapofDoom,  //en kontrollfunktion för att se om vi har kartan
+                setState: { mapofDoom: false, guldhacka: true },
                 nextText: 3 
             },
             {
-                text: 'Ignorera mannen',
+                text: 'Ignore the stranger',
                 nextText: 3 
             }
         ]
