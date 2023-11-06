@@ -12,7 +12,7 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    background-image: url(Images/skull.jpg);
 }
 
 .h1 {
@@ -39,7 +39,7 @@ body {
 .container {
     width: 900px;
     max-width: 80%;
-    background: white;
+    background-image: url(Images/book.jpg);
     padding: 10px;
     margin-top: 15px;
     border-radius: 6px;
