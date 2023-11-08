@@ -1,6 +1,6 @@
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
-const backgroundMusic = new Audio('Music/nowhere.mp3')
+const backgroundMusic = new Audio('Music/caves.mp3')
 
 //det som håller koll på vad vår karaktär bär på
 let state= {}
@@ -64,48 +64,54 @@ const textNodes = [
         }
       ]   
     },
-    {   //nästa steg 
+    {   //Scen 2
         id: 2,
-        text: 'You proceed and enter to the first chamber. Here you meet a stranger who asks if you wish to enter a secret path of the chambers and if so with lights or without. Without lights means that you can see hidden inscriptions on the walls. Either choice meanas you need to give him your map.',
+        text: 'You proceed and enter to the first chamber. Here you meet a  dark figure, a stranger who wants to give you a note but only in exchange for the map. Beside him  on the floor you see an axe.',
         image: "Images/catacomb1.jpg",
         options: [
             {
-                text: 'You give him your map and choose with lights',
+                text: 'You give him your map and take the note',
                 requiredState: (currentState) => currentState.mapofDoom,  //en kontrollfunktion för att se om vi har lappen för dolda vägen
-                setState: { mapofDoom: false, secretPathNote: true },
+                setState: { mapofDoom: false, secretNote: true },
                 nextText: 3
             },
             {
-                text: 'You give him your map but want no lighting',
+                text: 'You take his axe and start running into the next room but loose the map',
                 requiredState: (currentState) => currentState.mapofDoom,  //en kontrollfunktion för att se om vi har kartan
-                setState: { mapofDoom: false, guldhacka: true },
-                nextText: 3 
+                setState: { mapofDoom: false, silverAxe: true },
+                nextText: 4 
             },
             {
-                text: 'Ignore the stranger',
-                nextText: 3 
+                text: 'Ignore the stranger but keep a lookout',
+                nextText: 5 
             }
         ]
     },
-    {
+    {   //Scen 3
         id:3,
-        text: 'Efter att ha letat efter guld i flera timmar känner du dig alldeles slut. Inget guld och du är svettig och trött. Du behöver hitta någonstans att sova så du beger dig upp mot bergen där du vet att det finns en by.',
+        text: 'On the note you see a riddle. If you know the answer make the right choice next. You turn around in the  new room to see if you see something. On the floor there is a knife and a torch.',
+        image: "Images/paper.png",
         options: [
             {
-                text: 'Du ser en liten hydda dit du går in',
+                text: 'You take the knife',
+                requiredState: (currentState) => currentState.secretNote,
+                setState: { secretNote: false, knife: true},
                 nextText: 4
             },
             {
-                text: 'Du ser en gammal lada och lägger dig inne bland kossorna',
+                text: 'You take the torch',
+                setState: { secretNote: false, fireTorch: true},
                 nextText: 5
             },
             {
-                text: 'Du går upp till en grotta där du lägger dig och gör upp eld',
+                text: 'You take none',
+                setState: { secretNote: false},
                 nextText: 6
             }
         ]
     },
     {
+
         id: 6, 
         text: 'Du märker inte men i grottan du befinner dig i fanns en björn i idé. Du väckte honom vilket resulterade i en enorm ilska hos björnen och du hann tyvärr ej fly. Du blir dödad.',
         options: [

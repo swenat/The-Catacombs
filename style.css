@@ -34,6 +34,7 @@ body {
 
 #text {
     margin-top: 8px;
+    margin-top: 8px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
@@ -67,7 +68,6 @@ body {
     background:linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
     border: 1 px solid hsl(48, 89%, 37%, 0.5);
     border-radius: 5px;
-    padding: 5px 10px;
     color: rgb(64, 59, 12);
     outline: none;
     box-shadow: 1px 1px rgb(169, 155, 1);
