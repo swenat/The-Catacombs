@@ -2,7 +2,7 @@ const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
 const backgroundMusic = new Audio('Music/caves.mp3')
 
-//det som håller koll på vad vår karaktär bär på
+//what keeps record of what our character is carrying
 let state= {}
 
 //här står det vad starten ska innebära
@@ -50,7 +50,7 @@ function selectOption(option) { //så att vi vet vilket val som tagits
 const textNodes = [
     { // First scene, entrance
       id: 1,
-      text: 'The time has come for your dream or nightmare to begin.' + '\r\n' + 'Your trip has taken you to the Catacombs of Paris.' + '\r\n' + 'The entrance reads: "Stop! This is the Empire of the dead."' + '\r\n' + 'Your guide wants to give you a map. Do you take it?',
+      text: 'Finally, your trip has started. This time you chose The Catacombs in Paris. Now finally you stand at its entrance.' + '\r\n' + 'The entrance reads: "Stop! This is the Empire of the dead."' + '\r\n' + 'Your guide wants to give you a map. Do you take it?',
       image: "Images/entrance_catacombs.jpg",
       options: [
         { //The different choices shown as buttons
@@ -77,7 +77,7 @@ const textNodes = [
     },
     {   //Scene 3 - sign approached
         id: 3,
-        text: 'On the sign it says something in french. You do not understand what it says.',
+        text: 'On the sign it says something in french. You do not understand what it says. The map can help if you have it.',
         image: "Images/catacomb_room2_sign.jpg",
         options: [
             {
@@ -104,82 +104,63 @@ const textNodes = [
             },
             {
                 text: 'You ignore the stranger',
-                requiredState: (currentState) => currentState.mapofDoom,  //en kontrollfunktion för att se om vi har lappen för dolda vägen
                 nextText: 6
             }
         ]        
     },
-    {   //Scene 4 - 
-        id: 4,
-        text: 'On the note you see a riddle. If you know the answer make the right choice next. You turn around in the  new room to see if you see something. On the floor there is a knife and a torch.',
+    {   //Scene 5 - The Note
+        id: 5,
+        text: 'On the note you see a riddle. If you know the answer make the right choice next. You turn around in the  new room to see if you see something and there they are on the rockfloor: a hammer and a torch.',
         image: "Images/paper.png",
         options: [
             {
-                text: 'You take the knife',
-                requiredState: (currentState) => currentState.secretNote,
-                setState: { secretNote: false, knife: true},
-                nextText: 4
+                text: 'You take the hammer',
+                setState: { secretNote: false, bigHammer: true},
+                nextText: 6
             },
             {
                 text: 'You take the torch',
                 setState: { secretNote: false, fireTorch: true},
-                nextText: 5
-            },
-            {
-                text: 'You take none',
-                setState: { secretNote: false},
                 nextText: 6
             }
         ]
     },
-    {   //Scen 3
-        id: 3,
-        text: 'On the note you see a riddle. If you know the answer make the right choice next. You turn around in the  new room to see if you see something. On the floor there is a knife and a torch.',
-        image: "Images/paper.png",
+    {   //Scene 6 - Darkroom change
+        id: 6,
+        text: 'Suddenly you enter a dark hallway...What do you do?',
+        image: "Images/hallwaydark.jpg",
         options: [
             {
-                text: 'You take the knife',
-                requiredState: (currentState) => currentState.secretNote,
-                setState: { secretNote: false, knife: true},
-                nextText: 4
+                text: 'You use the torch',
+                requiredState: (currentState) => currentState.fireTorch,
+                nextText: 7
             },
             {
-                text: 'You take the torch',
-                setState: { secretNote: false, fireTorch: true},
-                nextText: 5
-            },
-            {
-                text: 'You take none',
-                setState: { secretNote: false},
-                nextText: 6
+                text: 'You walk in the dark',
+                requiredState: (currentState) => currentState.bigHammer,
+                nextText: 7
             }
         ]
     },
-    {   //Scen 3
-        id: 4,
-        text: 'On the note you see a riddle. If you know the answer make the right choice next. You turn around in the  new room to see if you see something. On the floor there is a knife and a torch.',
-        image: "Images/paper.png",
+    {   //Scene 7 - Light torch
+        id: 7,
+        text: 'You light up the torch and see a long hallway. In the end there is a door with a lock, but you have no key. You can choose to turn back and get the hammer or turn right.',
+        image: "Images/hallway_light.png",
         options: [
             {
-                text: 'You take the knife',
-                requiredState: (currentState) => currentState.secretNote,
-                setState: { secretNote: false, knife: true},
-                nextText: 4
-            },
-            {
-                text: 'You take the torch',
-                setState: { secretNote: false, fireTorch: true},
+                text: 'You turn back',
+                setState: { fireTorch: false, bigHammer: true},
                 nextText: 5
             },
             {
-                text: 'You take none',
-                setState: { secretNote: false},
-                nextText: 6
+                text: 'You turn right',
+                setState: { secretNote: false, fireTorch: true},
+                nextText: 5
             }
         ]
     },
-    {   //Scen 4
-        id: 4,
+    {   //Scene 4
+        id: 10,
         text: 'You chose the wrong item but hopefully this will help you anyway. You have entered a new room ',
         image: "Images/paper.png",
         options: [
