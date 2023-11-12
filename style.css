@@ -22,25 +22,25 @@ body {
     color: white;
     font-size: 50px;
     text-shadow: 2px 2px black;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:'teutonic1','Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
 
 .image {
     display: flex;
     justify-content: center;
-    align-content: center;
-  
+    align-content: center; 
 }
 
 #text {
     margin-top: 8px;
-    margin-top: 8px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: bold;
+    padding-top: 5px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
 }
 
 #journey {
-    height: 250px;
+    height: 300px;
     border-radius: 5px;
     box-shadow: 5px 5px 5px 5px rgba(6, 0, 0, 0.5);
     
@@ -48,7 +48,7 @@ body {
 
 .container {
     width: 900px;
-    max-width: 40%;
+    max-width: 50%;
     background-image: url(Images/book.jpg);
     padding: 12px;
     margin-top: 15px;
@@ -63,6 +63,7 @@ body {
     grid-template-columns: repeat(2, auto);
     gap: 10px;
     margin-top: 20px;
+    justify-content: center;
 }
 .btn {
     background:linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
@@ -73,6 +74,7 @@ body {
     box-shadow: 1px 1px rgb(169, 155, 1);
     height: 40px;
     font-size: 15px;
+    font-weight: bold;
 }
 
 .btn:hover {

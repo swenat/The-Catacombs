@@ -48,144 +48,39 @@ function selectOption(option) { //så att vi vet vilket val som tagits
 }
 
 const textNodes = [
-    { // First scene, entrance
-      id: 1,
-      text: 'Finally, your trip has started. This time you chose The Catacombs in Paris. Now finally you stand at its entrance.' + '\r\n' + 'The entrance reads: "Stop! This is the Empire of the dead."' + '\r\n' + 'Your guide wants to give you a map. Do you take it?',
-      image: "Images/entrance_catacombs.jpg",
-      options: [
-        { //The different choices shown as buttons
-            text:'Take the map',
-            setState: { mapofDoom: true }, //If the caracter decides ot take the item
-            nextText: 2  //Where it goes next if the caracter has taken the item
-        },
-        {
-            text:'Do not take the map',
-            nextText: 2
-        }
-      ]   
-    },
-    {   //Scene 2 - The sign
-        id: 2,
-        text: 'You proceed and enter to the first chamber. It leeds to a sign that you wish to read.',
-        image: "Images/catacombs_room2.png",
+    { // Scene 1 - Entrance 
+        id: 1,
+        text: '1774 - The Parisian Catacombs.' + '\r\n' + 'When so many perished in diseases there was no choice for the parisians more than to make sure that there was space enough space for more dead on the graveyards. Therefor they moved up to 6 million skeletons to their new restingplace. Many believe these became restless souls, moving around in the 20 meter deep grave, wondering why their peace was disturbed..',
+        image: "Images/old_catacomb.jpg",
         options: [
-            {
-                text: 'Aproach the sign',
-                nextText: 3
-            }
-        ]   
+          { //The different choices shown as buttons
+              text:'Click here to start',
+              nextText: 2
+              
+          }
+        ]  
     },
-    {   //Scene 3 - sign approached
-        id: 3,
-        text: 'On the sign it says something in french. You do not understand what it says. The map can help if you have it.',
-        image: "Images/catacomb_room2_sign.jpg",
-        options: [
-            {
-                text: 'Use the back of the map for translation',
-                requiredState: (currentState) => currentState.mapofDoom,  //Control to see if we have the map before getting the translation
-                nextText: 4
-            },
-            {
-                text: 'Proceed without translation',
-                nextText: 7
-            }
-        ]   
-        
-    },
-    {   //Scene 4  - Translation of sign
-        id: 4,
-        text: 'The sign says: "Bones from the old Magdaleine cemetery deposited in 1844 in the western ossuary and transferred to the catacombs in September 1859". Interesting facts you thing to yourself while turning around to proceed.'+ '\r\n' + 'Suddenly a stranger aproaches you and wants to give you a note.',
-        image: "Images/stranger.jpg",
-        options: [
-            {
-                text: 'You hesitate first but take it',
-                setState: { secretNote: true }, 
-                nextText: 5
-            },
-            {
-                text: 'You ignore the stranger',
-                nextText: 6
-            }
-        ]        
-    },
-    {   //Scene 5 - The Note
-        id: 5,
-        text: 'On the note you see a riddle. If you know the answer make the right choice next. You turn around in the  new room to see if you see something and there they are on the rockfloor: a hammer and a torch.',
-        image: "Images/paper.png",
-        options: [
-            {
-                text: 'You take the hammer',
-                setState: { secretNote: false, bigHammer: true},
-                nextText: 6
-            },
-            {
-                text: 'You take the torch',
-                setState: { secretNote: false, fireTorch: true},
-                nextText: 6
-            }
-        ]
-    },
-    {   //Scene 6 - Darkroom change
-        id: 6,
-        text: 'Suddenly you enter a dark hallway...What do you do?',
-        image: "Images/hallwaydark.jpg",
-        options: [
-            {
-                text: 'You use the torch',
-                requiredState: (currentState) => currentState.fireTorch,
-                nextText: 7
-            },
-            {
-                text: 'You walk in the dark',
-                requiredState: (currentState) => currentState.bigHammer,
-                nextText: 7
-            }
-        ]
-    },
-    {   //Scene 7 - Light torch
-        id: 7,
-        text: 'You light up the torch and see a long hallway. In the end there is a door with a lock, but you have no key. You can choose to turn back and get the hammer or turn right.',
-        image: "Images/hallway_light.png",
-        options: [
-            {
-                text: 'You turn back',
-                setState: { fireTorch: false, bigHammer: true},
-                nextText: 5
-            },
-            {
-                text: 'You turn right',
-                setState: { secretNote: false, fireTorch: true},
-                nextText: 5
-            }
-        ]
-    },
-    {   //Scene 4
-        id: 10,
-        text: 'You chose the wrong item but hopefully this will help you anyway. You have entered a new room ',
-        image: "Images/paper.png",
-        options: [
-            {
-                text: 'You take the knife',
-                requiredState: (currentState) => currentState.secretNote,
-                setState: { secretNote: false, knife: true},
-                nextText: 4
-            },
-            {
-                text: 'You take the torch',
-                setState: { secretNote: false, fireTorch: true},
-                nextText: 5
-            },
-            {
-                text: 'You take none',
-                setState: { secretNote: false},
-                nextText: 6
-            }
-        ]
+        { // Scene 2 - Enter 
+            id: 2,
+            text: 'Your guide awaits. He wants to give you a map in case you get lost.',
+            image: "Images/old_catacomb.jpg",
+            options: [
+              { //The different choices shown as buttons
+                  text:'Click here to start',
+                  nextText: 2
+                  
+              }
+            ]    
+    
+
+
+            //End
+
     },
     {
 
-        id: 6, 
-        text: 'Du märker inte men i grottan du befinner dig i fanns en björn i idé. Du väckte honom vilket resulterade i en enorm ilska hos björnen och du hann tyvärr ej fly. Du blir dödad.',
+        id: -17, 
+        text: 'Fel svar. En vålnad får tag i dig när din eld plötsligt dör ut.',
         options: [
             {
                 text: 'Omstart',
