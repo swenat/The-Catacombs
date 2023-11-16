@@ -74,9 +74,6 @@ function showTextNode(textNodeIndex) {
 		optionButtonsElement.removeChild(optionButtonsElement.firstChild) //removes existing option buttons
 	}
 
-	//if (textNodeIndex === 2 && textNode.options.some(option => option.text === 'You accept')) {
-    //    startBackgroundMusic();
-    //}
 	if (textNodeIndex === 3) {
 		backgroundMusic.play(); //play background music
 		backgroundMusic.volume = 0.5;
