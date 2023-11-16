@@ -1,18 +1,15 @@
+//Get reference to HTML elements
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
 const backgroundMusic = new Audio('Music/caves.mp3')
-//  what keeps record of what our character is carrying
 // let state= {};   tagit bort temporärt för att se om det är detta som gör så att användaren kan fortsätta efter en reload
-function startBackgroundMusic() {
-	backgroundMusic.src = 'Music/caves.mp3';
-	backgroundMusic.volume = 0.5;
-	backgroundMusic.loop = true;
-	backgroundMusic.play();
-}
 
+// To save game state 
 function saveGame(nextTextNode) {
-	state.savedTextNode = nextTextNode 
-	localStorage.setItem('gameState', JSON.stringify(state)); // For storing item in local storage
+	state.savedTextNode = nextTextNode;
+	state.musicPlaybackTime = backgroundMusic.currentTime; 
+
+	localStorage.setItem('gameState', JSON.stringify(state)); // For storing game state in local storage
 
 }
 
@@ -20,23 +17,46 @@ function loadGame() {
 	const savedState = localStorage.getItem('gameState');
 	if (savedState) {
 		state = JSON.parse(savedState); // For reading
+		isMusicPlaying = state.isMusicPlaying || false;
+		if (state.musicPlaybackTime && isMusicPlaying) {
+            // Resume music from where it left off
+            backgroundMusic.currentTime = state.musicPlaybackTime;
+            backgroundMusic.play();
+        }
 	}
 }
-// here it says what the start means
+// Function to start the game
 function startGame() {
+	hasMusicStarted = false;
 	state = {} // the character begins with no items on in state
 	loadGame();
-	startBackgroundMusic(); // starts music as soon as the game starts
 	showTextNode(state.savedTextNode || 1);
+
 }
 
+//Function to display a specific textnode 
 function showTextNode(textNodeIndex) {
-	const textNode = textNodes.find(textNode => textNode.id === textNodeIndex) // makes sure that the right textnode is shown
-	textElement.innerText = textNode.text // shows the actual text
+	const textNode = textNodes.find(textNode => textNode.id === textNodeIndex) 
+	 // shows the actual text
 	while (optionButtonsElement.firstChild) { // does so that the first buttons aren´t shown the first time
-		optionButtonsElement.removeChild(optionButtonsElement.firstChild)
+		optionButtonsElement.removeChild(optionButtonsElement.firstChild) //removes existing option buttons
 	}
+	
+	if (!hasMusicStarted) {  
+		backgroundMusic.play(); //play background music
+		backgroundMusic.volume = 0.5;
+		backgroundMusic.loop = true;
+		hasMusicStarted = true;
+	  } else if (state.isMusicPlaying) { 
+		// Resume music from where it left off when refreshed
+		backgroundMusic.currentTime = state.musicPlaybackTime || 0;
+		backgroundMusic.play();
+	  }
+	
+	//display options as buttons  
+	textElement.innerText = textNode.text
 	journey.src = textNode.image;
+
 	textNode.options.forEach(option => { // a loop that goes through the choices to make sure if it can show it
 		if (showOption(option)) {
 			const button = document.createElement('button')
@@ -45,10 +65,10 @@ function showTextNode(textNodeIndex) {
 			button.addEventListener('click', () => selectOption(option))
 			optionButtonsElement.appendChild(button)
 		}
-	})
+	});
 }
 
-function showOption(option) {
+function showOption(option) { // Function to determine if an option should be shown based on required state
 	return option.requiredState == null || option.requiredState(state) // no required state or if the required state is reached then the option is shown
 }
 
@@ -60,10 +80,14 @@ function selectOption(option) { // so that we know which option has been chosen
 	}
 	state = Object.assign(state, option.setState) // takes our current status, adds everything in the choice options och rewrites whats already there
 	saveGame(nextTextNodeId);
+	setTimeout(() => {
+        state.isMusicPlaying = !backgroundMusic.paused;
+    }, 500);
+	
 	showTextNode(nextTextNodeId)
 }
-const textNodes = [{ // Scene 1 - History 
-	id: 1,
+const textNodes = [{ // Array of text nodes representing different scenes in the game
+	id: 1, // Scene 1 - History 
 	text: '1774 - The Parisian Catacombs.' + '\r\n' + 'When so many perished in diseases there was no choice for the parisians more than to make sure that there was space enough space for more dead on the graveyards. Therefor they moved up to 6 million skeletons to their new restingplace. Many believe these became restless souls, moving around in the 20 meter deep grave, wondering why their peace was disturbed..',
 	image: "Images/old_catacomb.jpg",
 	options: [{ //The different choices shown as buttons
@@ -196,7 +220,7 @@ const textNodes = [{ // Scene 1 - History
 	}, ]
 }, { //Scene 14 - Defeat 
 	id: 14,
-	text: 'You fight and manage to escape with him running behind you. Unfortunatly your sword was torn in two. You run for 20 minutes into the darkness until you come to a halt. You must decide what to do next.',
+	text: 'You fight and manage to escape with him running behind you. Unfortunately your sword was torn in two. You run for 20 minutes into the darkness until you come to a halt. You must decide what to do next.',
 	image: "Images/burning_torch.jpg",
 	options: [{
 		text: 'Turn left',
@@ -294,5 +318,5 @@ const textNodes = [{ // Scene 1 - History
 		nextTextNode: -1
 	}]
 }]
-//kommer upp så fort spelet laddas
+//Start the game when the script is loaded
 startGame()
