@@ -1,4 +1,6 @@
 //I have created comments for myself apart from the js doc comments 
+
+
 //Get reference to HTML elements
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
@@ -66,11 +68,16 @@ function startGame() {
  */
 function showTextNode(textNodeIndex) {
 	const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
+
 	// shows the actual text
 	while (optionButtonsElement.firstChild) { // does so that the first buttons aren´t shown the first time
 		optionButtonsElement.removeChild(optionButtonsElement.firstChild) //removes existing option buttons
 	}
-	if (!hasMusicStarted) {
+
+	//if (textNodeIndex === 2 && textNode.options.some(option => option.text === 'You accept')) {
+    //    startBackgroundMusic();
+    //}
+	if (textNodeIndex === 3) {
 		backgroundMusic.play(); //play background music
 		backgroundMusic.volume = 0.5;
 		backgroundMusic.loop = true;
