@@ -1,3 +1,5 @@
+//I have created comments for myself apart from the js doc comments 
+
 //Get reference to HTML elements
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
@@ -5,6 +7,12 @@ const backgroundMusic = new Audio('Music/caves.mp3')
 // let state= {};   tagit bort temporärt för att se om det är detta som gör så att användaren kan fortsätta efter en reload
 
 // To save game state 
+/**
+ * Saves the current game state, including the next text node and music playback time, to local storage.
+ * @function
+ * @param {number} nextTextNode - The ID of the next text node.
+ * @returns {void}
+ */
 function saveGame(nextTextNode) {
 	state.savedTextNode = nextTextNode;
 	state.musicPlaybackTime = backgroundMusic.currentTime; 
@@ -12,7 +20,10 @@ function saveGame(nextTextNode) {
 	localStorage.setItem('gameState', JSON.stringify(state)); // For storing game state in local storage
 
 }
-
+/**
+ * Loads the game state from local storage.
+ * @function
+ */
 function loadGame() {
 	const savedState = localStorage.getItem('gameState');
 	if (savedState) {
@@ -26,15 +37,41 @@ function loadGame() {
 	}
 }
 // Function to start the game
+/**
+ * Starts the game by initializing necessary variables and loading the game state.
+ * @function
+ * @global
+ * @returns {void}
+ */
 function startGame() {
+	/**
+     * Indicates whether the music has started or not.
+     * @type {boolean}
+     */
 	hasMusicStarted = false;
+	 /**
+     * Represents the state of the game, initially with no items.
+     * @type {Object}
+     */
 	state = {} // the character begins with no items on in state
 	loadGame();
-	showTextNode(state.savedTextNode || 1);
+	/**
+     * The text node to be displayed, either the saved one or the default (1).
+     * @type {number}
+     */
+	showTextNode(state.savedTextNode || 1); 
 
 }
 
-//Function to display a specific textnode 
+
+/**
+ * Function to display a specific textnode in the game. It updates the text, image and option buttons.
+ *
+ * @function
+ * @param {number} textNodeIndex - The ID of the text node to be displayed.
+ * @returns {void}
+ */
+
 function showTextNode(textNodeIndex) {
 	const textNode = textNodes.find(textNode => textNode.id === textNodeIndex) 
 	 // shows the actual text
@@ -67,10 +104,21 @@ function showTextNode(textNodeIndex) {
 		}
 	});
 }
+/**
+ * Determines if an option should be shown based on the required game state.
+ * @function
+ * @param {Object} option - The option to be checked.
+ * @returns {boolean} - True if the option should be shown, false otherwise.
+ */
 
 function showOption(option) { // Function to determine if an option should be shown based on required state
 	return option.requiredState == null || option.requiredState(state) // no required state or if the required state is reached then the option is shown
 }
+/**
+ * Handles the selection of an option by the player.
+ * @function
+ * @param {Object} option - The selected option.
+ */
 
 function selectOption(option) { // so that we know which option has been chosen
 	const nextTextNodeId = option.nextTextNode
@@ -86,8 +134,22 @@ function selectOption(option) { // so that we know which option has been chosen
 	
 	showTextNode(nextTextNodeId)
 }
+
+/**
+ * An array of text nodes representing different scenes in the game.
+ * @type {Array<TextNode>}
+ */
+
 const textNodes = [{ // Array of text nodes representing different scenes in the game
-	id: 1, // Scene 1 - History 
+  /**
+     * @typedef {Object} TextNode
+     * @property {number} id - Unique identifier of the text node.
+     * @property {string} text - Text content of the text node.
+     * @property {string} image - Path to the image associated with the text node.
+     * @property {Array<Object>} options - An array of options the player can choose from.
+     */
+
+	id: 1, // Scene 1 - History of the Catacombs
 	text: '1774 - The Parisian Catacombs.' + '\r\n' + 'When so many perished in diseases there was no choice for the parisians more than to make sure that there was space enough space for more dead on the graveyards. Therefor they moved up to 6 million skeletons to their new restingplace. Many believe these became restless souls, moving around in the 20 meter deep grave, wondering why their peace was disturbed..',
 	image: "Images/old_catacomb.jpg",
 	options: [{ //The different choices shown as buttons
@@ -318,5 +380,5 @@ const textNodes = [{ // Array of text nodes representing different scenes in the
 		nextTextNode: -1
 	}]
 }]
-//Start the game when the script is loaded
+//Starts the game when the script is loaded
 startGame()
