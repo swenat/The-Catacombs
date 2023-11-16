@@ -1,11 +1,9 @@
 //I have created comments for myself apart from the js doc comments 
-
 //Get reference to HTML elements
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
 const backgroundMusic = new Audio('Music/caves.mp3')
 // let state= {};   tagit bort temporärt för att se om det är detta som gör så att användaren kan fortsätta efter en reload
-
 // To save game state 
 /**
  * Saves the current game state, including the next text node and music playback time, to local storage.
@@ -15,10 +13,8 @@ const backgroundMusic = new Audio('Music/caves.mp3')
  */
 function saveGame(nextTextNode) {
 	state.savedTextNode = nextTextNode;
-	state.musicPlaybackTime = backgroundMusic.currentTime; 
-
+	state.musicPlaybackTime = backgroundMusic.currentTime;
 	localStorage.setItem('gameState', JSON.stringify(state)); // For storing game state in local storage
-
 }
 /**
  * Loads the game state from local storage.
@@ -30,10 +26,10 @@ function loadGame() {
 		state = JSON.parse(savedState); // For reading
 		isMusicPlaying = state.isMusicPlaying || false;
 		if (state.musicPlaybackTime && isMusicPlaying) {
-            // Resume music from where it left off
-            backgroundMusic.currentTime = state.musicPlaybackTime;
-            backgroundMusic.play();
-        }
+			// Resume music from where it left off
+			backgroundMusic.currentTime = state.musicPlaybackTime;
+			backgroundMusic.play();
+		}
 	}
 }
 // Function to start the game
@@ -45,25 +41,22 @@ function loadGame() {
  */
 function startGame() {
 	/**
-     * Indicates whether the music has started or not.
-     * @type {boolean}
-     */
+	 * Indicates whether the music has started or not.
+	 * @type {boolean}
+	 */
 	hasMusicStarted = false;
-	 /**
-     * Represents the state of the game, initially with no items.
-     * @type {Object}
-     */
+	/**
+	 * Represents the state of the game, initially with no items.
+	 * @type {Object}
+	 */
 	state = {} // the character begins with no items on in state
 	loadGame();
 	/**
-     * The text node to be displayed, either the saved one or the default (1).
-     * @type {number}
-     */
-	showTextNode(state.savedTextNode || 1); 
-
+	 * The text node to be displayed, either the saved one or the default (1).
+	 * @type {number}
+	 */
+	showTextNode(state.savedTextNode || 1);
 }
-
-
 /**
  * Function to display a specific textnode in the game. It updates the text, image and option buttons.
  *
@@ -71,29 +64,25 @@ function startGame() {
  * @param {number} textNodeIndex - The ID of the text node to be displayed.
  * @returns {void}
  */
-
 function showTextNode(textNodeIndex) {
-	const textNode = textNodes.find(textNode => textNode.id === textNodeIndex) 
-	 // shows the actual text
+	const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
+	// shows the actual text
 	while (optionButtonsElement.firstChild) { // does so that the first buttons aren´t shown the first time
 		optionButtonsElement.removeChild(optionButtonsElement.firstChild) //removes existing option buttons
 	}
-	
-	if (!hasMusicStarted) {  
+	if (!hasMusicStarted) {
 		backgroundMusic.play(); //play background music
 		backgroundMusic.volume = 0.5;
 		backgroundMusic.loop = true;
 		hasMusicStarted = true;
-	  } else if (state.isMusicPlaying) { 
+	} else if (state.isMusicPlaying) {
 		// Resume music from where it left off when refreshed
 		backgroundMusic.currentTime = state.musicPlaybackTime || 0;
 		backgroundMusic.play();
-	  }
-	
+	}
 	//display options as buttons  
 	textElement.innerText = textNode.text
 	journey.src = textNode.image;
-
 	textNode.options.forEach(option => { // a loop that goes through the choices to make sure if it can show it
 		if (showOption(option)) {
 			const button = document.createElement('button')
@@ -110,7 +99,6 @@ function showTextNode(textNodeIndex) {
  * @param {Object} option - The option to be checked.
  * @returns {boolean} - True if the option should be shown, false otherwise.
  */
-
 function showOption(option) { // Function to determine if an option should be shown based on required state
 	return option.requiredState == null || option.requiredState(state) // no required state or if the required state is reached then the option is shown
 }
@@ -119,7 +107,6 @@ function showOption(option) { // Function to determine if an option should be sh
  * @function
  * @param {Object} option - The selected option.
  */
-
 function selectOption(option) { // so that we know which option has been chosen
 	const nextTextNodeId = option.nextTextNode
 	if (nextTextNodeId <= 0) { //if this is correct it moves further down och restarts the game
@@ -129,26 +116,22 @@ function selectOption(option) { // so that we know which option has been chosen
 	state = Object.assign(state, option.setState) // takes our current status, adds everything in the choice options och rewrites whats already there
 	saveGame(nextTextNodeId);
 	setTimeout(() => {
-        state.isMusicPlaying = !backgroundMusic.paused;
-    }, 500);
-	
+		state.isMusicPlaying = !backgroundMusic.paused;
+	}, 500);
 	showTextNode(nextTextNodeId)
 }
-
 /**
  * An array of text nodes representing different scenes in the game.
  * @type {Array<TextNode>}
  */
-
 const textNodes = [{ // Array of text nodes representing different scenes in the game
-  /**
-     * @typedef {Object} TextNode
-     * @property {number} id - Unique identifier of the text node.
-     * @property {string} text - Text content of the text node.
-     * @property {string} image - Path to the image associated with the text node.
-     * @property {Array<Object>} options - An array of options the player can choose from.
-     */
-
+	/**
+	 * @typedef {Object} TextNode
+	 * @property {number} id - Unique identifier of the text node.
+	 * @property {string} text - Text content of the text node.
+	 * @property {string} image - Path to the image associated with the text node.
+	 * @property {Array<Object>} options - An array of options the player can choose from.
+	 */
 	id: 1, // Scene 1 - History of the Catacombs
 	text: '1774 - The Parisian Catacombs.' + '\r\n' + 'When so many perished in diseases there was no choice for the parisians more than to make sure that there was space enough space for more dead on the graveyards. Therefor they moved up to 6 million skeletons to their new restingplace. Many believe these became restless souls, moving around in the 20 meter deep grave, wondering why their peace was disturbed..',
 	image: "Images/old_catacomb.jpg",
